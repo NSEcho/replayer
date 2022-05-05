@@ -116,6 +116,7 @@ func (r *Replayer) Replay(cfg *config.ReplayerConfig) error {
 		for key, val := range resp.Header {
 			fmt.Printf("%s: %s\n", key, strings.Join(val, " "))
 		}
+		fmt.Printf("\n\n")
 	}
 
 	if cfg.PrintOnStdout {
