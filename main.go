@@ -2,6 +2,8 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"os"
 
 	"github.com/lateralusd/replayer/config"
 	"github.com/lateralusd/replayer/replay"
@@ -24,11 +26,19 @@ var (
 
 func main() {
 	flag.Parse()
-	r := replay.NewReplayer("req")
-	r.Replay(&config.ReplayerConfig{
+	args := flag.Args()
+	if len(args) == 0 || len(args) > 1 {
+		fmt.Fprintf(os.Stderr, "Please provide single filename")
+		os.Exit(1)
+	}
+	r := replay.NewReplayer(args[0])
+	err := r.Replay(&config.ReplayerConfig{
 		Count:         *count,
 		Timeout:       *timeout,
 		Proxy:         *proxy,
 		PrintOnStdout: *stdout,
 	})
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error replaying request: %+v\n", err)
+	}
 }
