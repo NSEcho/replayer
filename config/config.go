@@ -5,4 +5,5 @@ type ReplayerConfig struct {
 	Timeout       int
 	Proxy         string
 	PrintOnStdout bool
+	PrintHeaders  bool
 }

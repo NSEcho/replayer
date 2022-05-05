@@ -22,6 +22,7 @@ var (
 	timeout = flag.Int("t", 10, "timeout for request")
 	proxy   = flag.String("p", "", "proxy for requests in format https?://ip:port")
 	stdout  = flag.Bool("s", false, "print response on the stdout")
+	headers = flag.Bool("he", false, "print headers of the response")
 )
 
 func main() {
@@ -37,6 +38,7 @@ func main() {
 		Timeout:       *timeout,
 		Proxy:         *proxy,
 		PrintOnStdout: *stdout,
+		PrintHeaders:  *headers,
 	})
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error replaying request: %+v\n", err)

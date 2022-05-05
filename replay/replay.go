@@ -108,6 +108,16 @@ func (r *Replayer) Replay(cfg *config.ReplayerConfig) error {
 	}
 	defer resp.Body.Close()
 
+	if cfg.PrintHeaders {
+		fmt.Printf("%s %d %s\n",
+			resp.Proto,
+			resp.StatusCode,
+			http.StatusText(resp.StatusCode))
+		for key, val := range resp.Header {
+			fmt.Printf("%s: %s\n", key, strings.Join(val, " "))
+		}
+	}
+
 	if cfg.PrintOnStdout {
 		var reader io.ReadCloser
 		switch resp.Header.Get("Content-Encoding") {
